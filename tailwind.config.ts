@@ -23,9 +23,10 @@ const config = {
         'spotify-black': '#191414',
         'spotify-white': '#FFFFFF',
         'spotify-gray': {
-          100: '#B3B3B3',
-          200: '#535353',
+          100: '#515151',
+          200: '#2a2a2a',
           300: '#181818',
+          400: "#121212"
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
