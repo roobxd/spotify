@@ -1,30 +1,31 @@
-'use client'
-
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { FunctionComponent } from "react";
 import { Home, Search } from "lucide-react";
-import { FunctionComponent, useState } from "react"
+import { MainView } from "@/components/home/Main/Main";
 
-const NavigationSection: FunctionComponent = () => {
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
-    return (
-        <div className="flex-2 bg-spotify-gray-400 p-3 rounded-md">
-            <ToggleGroup
-                type="single" 
-                className="space-y-2 flex flex-col justify-start items-start"
-                onValueChange={(value) => setSelectedOption(value)}
-            >
-                <ToggleGroupItem className="!justify-start text-gray-300 gap-4 font-semibold" value="Home">
-                    <Home />
-                    Home
-                </ToggleGroupItem>
-                <ToggleGroupItem className="!justify-start text-gray-300 gap-4 font-semibold" value="Search">
-                    <Search/>
-                    Search
-                </ToggleGroupItem>
-            </ToggleGroup>
-        </div>
-    )
+interface NavigationSectionProps {
+  setMainView: (mainView: MainView) => void;
+  isCollapsed: boolean;
 }
+
+const NavigationSection: FunctionComponent<NavigationSectionProps> = ({ setMainView, isCollapsed }) => {
+  return (
+    <div className="bg-spotify-gray-400 p-2 rounded-lg mb-2 w-full">
+      <button 
+        onClick={() => setMainView(MainView.HOME)}
+        className="flex items-center w-full p-3 text-gray-400 hover:text-white transition-colors ease-in-out"
+      >
+        <Home size={26} />
+        {!isCollapsed && <span className="ml-4 text-sm font-bold">Home</span>}
+      </button>
+      <button 
+        onClick={() => setMainView(MainView.SEARCH)}
+        className="flex items-center w-full p-3 text-gray-400 hover:text-white transition-colors ease-in-out"
+      >
+        <Search size={26} />
+        {!isCollapsed && <span className="ml-4 text-sm font-bold">Search</span>}
+      </button>
+    </div>
+  );
+};
 
 export default NavigationSection;
