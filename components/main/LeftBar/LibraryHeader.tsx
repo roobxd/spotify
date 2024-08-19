@@ -1,18 +1,27 @@
+'use client'
 import React, { FunctionComponent } from 'react';
 import { Library, PlusIcon, ArrowRight, Search, List } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Tooltip, TooltipContent } from '@/components/ui/tooltip';
 import { TooltipTrigger } from '@radix-ui/react-tooltip';
+import { useUI } from '@/provider/UIProvider';
+import { useData } from '@/provider/DataProvider';
+import { Toggle } from '@/components/ui/toggle';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { LibraryFilter } from '@/constants/libraryFilter';
+import FilterToggleItem from '@/components/basic/FilterToggleItem';
 
-interface LibraryHeaderProps {
-    isCollapsed: boolean;
-    toggleCollapse: () => void;
-}
+/**
+ * Library header - handles all the buttons and such
+ * @returns FunctionComponent
+ */
+const LibraryHeader: FunctionComponent = () => {
+    const { isCollapsed, toggleCollapse } = useUI();
+    const { setLibraryFilter } = useData();
 
-const LibraryHeader: FunctionComponent<LibraryHeaderProps> = ({ isCollapsed, toggleCollapse }) => {
     return (
-        <div className="p-4 text-white">
+        <div className="px-4 pt-4 text-white">
             <div className="flex justify-between items-center mb-4">
                 <button onClick={toggleCollapse} className={`flex items-center group justify-center ${isCollapsed ? 'w-full' : ''}`}>
                     <Library size={24} className="text-gray-400 group-hover:text-white ease-in-out transition-colors" />
@@ -22,9 +31,7 @@ const LibraryHeader: FunctionComponent<LibraryHeaderProps> = ({ isCollapsed, tog
                     <div className="flex space-x-2">
                         <Tooltip>
                             <TooltipTrigger>
-                                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-spotify-gray-200">
-                                    <PlusIcon size={20} />
-                                </Button>
+                                <PlusIcon size={24} className='text-gray-400 hover:text-white hover:bg-spotify-gray-200 rounded-full' />
                             </TooltipTrigger>
                             <TooltipContent className="bg-spotify-gray-300 text-white border-none">
                                 <div>Create Playlist or Folder</div>
@@ -32,9 +39,7 @@ const LibraryHeader: FunctionComponent<LibraryHeaderProps> = ({ isCollapsed, tog
                         </Tooltip>
                         <Tooltip>
                             <TooltipTrigger>
-                                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-spotify-gray-200">
-                                    <ArrowRight size={20} />
-                                </Button>
+                                <ArrowRight size={24} className='text-gray-400 hover:text-white hover:bg-spotify-gray-200 rounded-full' />
                             </TooltipTrigger>
                             <TooltipContent className="bg-spotify-gray-300 text-white border-none">
                                 <div>Show More</div>
@@ -46,13 +51,11 @@ const LibraryHeader: FunctionComponent<LibraryHeaderProps> = ({ isCollapsed, tog
             {!isCollapsed && (
                 <>
                     <ScrollArea className="w-full whitespace-nowrap mb-4">
-                        <div className="flex space-x-2">
-                            {['Playlists', 'Artists', 'Albums', 'Podcasts & Shows'].map((filter) => (
-                                <Button key={filter} variant="secondary" size="sm" className="rounded-full bg-spotify-gray-200 text-white">
-                                    {filter}
-                                </Button>
+                        <ToggleGroup type="single" className=" justify-start flex flex-row items-start space-x-2">
+                            {[LibraryFilter.ALBUM, LibraryFilter.ARTIST, LibraryFilter.PLAYLIST].map((filter) => (
+                                <FilterToggleItem children={filter} value={filter} onClick={() => setLibraryFilter(filter)}/>
                             ))}
-                        </div>
+                        </ToggleGroup>
                         <ScrollBar orientation="horizontal" />
                     </ScrollArea>
                     <div className="flex justify-between items-center">

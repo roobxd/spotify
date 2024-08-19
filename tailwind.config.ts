@@ -1,6 +1,17 @@
 import type { Config } from "tailwindcss"
 
 const config = {
+  safelist: [
+    'from-red-700',
+    'from-blue-700',
+    'from-green-700',
+    'from-yellow-700',
+    'from-pink-700',
+    'from-purple-700',
+    'from-indigo-700',
+    'from-teal-700',
+    'from-gray-700'
+  ],
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -28,7 +39,8 @@ const config = {
           300: '#181818',
           400: "#121212",
           500: 'rgba(24,24,24,0.6)',
-          600: 'rgba(40,40,40,0.8)' 
+          600: 'rgba(40,40,40,0.8)',
+          700: 'rgba(50,50,50,0.8)' 
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

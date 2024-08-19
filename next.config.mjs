@@ -2,7 +2,7 @@
 const nextConfig = {
     images: {
         dangerouslyAllowSVG: true,
-        domains: ['placehold.co'],
+        domains: ['placehold.co', 'picsum.photos'],
     }
 };
 

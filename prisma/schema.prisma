@@ -20,51 +20,55 @@ generator client {
 }
 
 model Playlist {
-  id          String   @id @default(uuid()) @db.Uuid
+  id          String         @id @default(uuid()) @db.Uuid
   name        String
   description String?
+  imageUrl    String
   tracks      PlaylistTrack[]
 }
 
 model Track {
-  id         String   @id @default(uuid()) @db.Uuid
-  title      String
-  duration   Int      
-  albumId    String?  @db.Uuid
-  album      Album?   @relation(fields: [albumId], references: [id])
+  id         String         @id @default(uuid()) @db.Uuid
+  name       String
+  duration   Int
+  imageUrl    String
+  albumId    String?        @db.Uuid
+  album      Album?         @relation(fields: [albumId], references: [id])
   artists    TrackArtist[]
   playlists  PlaylistTrack[]
 }
 
 model Album {
-  id         String   @id @default(uuid()) @db.Uuid
-  title      String
+  id          String         @id @default(uuid()) @db.Uuid
+  name        String
   releaseDate DateTime
-  artistId   String   @db.Uuid
-  artist     Artist   @relation(fields: [artistId], references: [id])
-  tracks     Track[]
+  imageUrl    String
+  artistId    String         @db.Uuid
+  artist      Artist         @relation(fields: [artistId], references: [id])
+  tracks      Track[]
 }
 
 model Artist {
-  id      String   @id @default(uuid()) @db.Uuid
-  name    String
-  albums  Album[]
-  tracks  TrackArtist[]
+  id          String         @id @default(uuid()) @db.Uuid
+  name        String
+  imageUrl    String
+  albums      Album[]
+  tracks      TrackArtist[]
 }
 
 model PlaylistTrack {
-  id         String   @id @default(uuid()) @db.Uuid
-  playlist   Playlist @relation(fields: [playlistId], references: [id])
-  playlistId String   @db.Uuid
-  track      Track    @relation(fields: [trackId], references: [id])
-  trackId    String   @db.Uuid
-  order      Int      
+  id         String         @id @default(uuid()) @db.Uuid
+  playlist   Playlist       @relation(fields: [playlistId], references: [id])
+  playlistId String         @db.Uuid
+  track      Track          @relation(fields: [trackId], references: [id])
+  trackId    String         @db.Uuid
+  order      Int
 }
 
 model TrackArtist {
-  id        String   @id @default(uuid()) @db.Uuid
-  track     Track    @relation(fields: [trackId], references: [id])
-  trackId   String   @db.Uuid
-  artist    Artist   @relation(fields: [artistId], references: [id])
-  artistId  String   @db.Uuid
+  id        String         @id @default(uuid()) @db.Uuid
+  track     Track          @relation(fields: [trackId], references: [id])
+  trackId   String         @db.Uuid
+  artist    Artist         @relation(fields: [artistId], references: [id])
+  artistId  String         @db.Uuid
 }

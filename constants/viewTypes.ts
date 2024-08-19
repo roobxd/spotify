@@ -1,6 +1,9 @@
 export enum MainView {
     HOME = 'HOME',
     SEARCH = 'SEARCH',
+    ARTIST = "ARTIST",
+    ALBUM = "ALBUM",
+    PLAYLIST = "PLAYLIST"
   }
 
 export enum AdditionalView {
