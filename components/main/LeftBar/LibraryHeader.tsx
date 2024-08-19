@@ -52,8 +52,10 @@ const LibraryHeader: FunctionComponent = () => {
                 <>
                     <ScrollArea className="w-full whitespace-nowrap mb-4">
                         <ToggleGroup type="single" className=" justify-start flex flex-row items-start space-x-2">
-                            {[LibraryFilter.ALBUM, LibraryFilter.ARTIST, LibraryFilter.PLAYLIST].map((filter) => (
-                                <FilterToggleItem children={filter} value={filter} onClick={() => setLibraryFilter(filter)}/>
+                            {[LibraryFilter.ALBUM, LibraryFilter.ARTIST, LibraryFilter.PLAYLIST].map((filter, index) => (
+                                <FilterToggleItem value={filter} onClick={() => setLibraryFilter(filter)} key={index}> 
+                                    {filter}
+                                </FilterToggleItem>
                             ))}
                         </ToggleGroup>
                         <ScrollBar orientation="horizontal" />

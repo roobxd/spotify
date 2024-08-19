@@ -94,7 +94,7 @@ const TopSection: FunctionComponent<TopSectionProps> = ({ results }) => {
                 <div className="space-y-2">
                     {topTracks.length > 0 ? (
                         topTracks.map((track) => (
-                            <LeftBarLibraryItem item={track}/>
+                            <LeftBarLibraryItem item={track} key={track.id}/>
                         ))
                     ) : (
                         <p>No top tracks available</p>
